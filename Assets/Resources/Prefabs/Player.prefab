@@ -101,16 +101,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a97eaec8ae7d46a47a57d2b1ba9b4154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftJoystick: {fileID: 0}
-  rightJoystick: {fileID: 0}
   rb: {fileID: 0}
   tf: {fileID: 0}
+  leftJoystick: {fileID: 0}
+  rightJoystick: {fileID: 0}
   Horizontal: 0
   Vertical: 0
   Direction: {x: 0, y: 0}
   Speed: 5
   Velocity: {x: 0, y: 0}
   Rotation: 0
+  currentWeaponIndex: 0
+  MousePosition: {x: 0, y: 0, z: 0}
 --- !u!50 &655272722223841260
 Rigidbody2D:
   serializedVersion: 4

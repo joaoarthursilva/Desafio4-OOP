@@ -28,7 +28,7 @@ public class BulletController : BaseController
         rb.velocity = tf.rotation * new Vector2(0, Speed);
     }
 
-    protected virtual void Update()
+    private void Update()
     {
         float currentDistance = Vector3.Distance(tf.position, StartPosition);
         if (currentDistance >= Distance)

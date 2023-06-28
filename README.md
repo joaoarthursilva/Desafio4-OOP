@@ -1,6 +1,8 @@
 # Desafio4-OOP - LEIA ABAIXO
 
-Projeto para a aula de Programação de Jogos Digitais I
+Projeto para a aula de Programação de Jogos Digitais I.
+
+Se você ainda não aceitou o convite para ser um editor no projeto, cheque seu email e aceite.
 
 ## Clonar o repositório
 
