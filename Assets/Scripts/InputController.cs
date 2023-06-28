@@ -13,6 +13,7 @@ public class InputController : MonoBehaviour
     public static KeyCode SelectWeapon1ButtonKeyCode { get; protected set; }
     public static KeyCode SelectWeapon2ButtonKeyCode { get; protected set; }
     public static KeyCode SelectWeapon3ButtonKeyCode { get; protected set; }
+    public static KeyCode SelectWeapon4ButtonKeyCode { get; protected set; }
 
     private void Awake()
     {
@@ -21,18 +22,21 @@ public class InputController : MonoBehaviour
         SelectWeapon1ButtonKeyCode = KeyCode.Alpha1;
         SelectWeapon2ButtonKeyCode = KeyCode.Alpha2;
         SelectWeapon3ButtonKeyCode = KeyCode.Alpha3;
+        SelectWeapon4ButtonKeyCode = KeyCode.Alpha4;
 
         keyDowns.Add(FireButtonKeyCode, false);
         keyDowns.Add(ReloadButtonKeyCode, false);
         keyDowns.Add(SelectWeapon1ButtonKeyCode, false);
         keyDowns.Add(SelectWeapon2ButtonKeyCode, false);
         keyDowns.Add(SelectWeapon3ButtonKeyCode, false);
+        keyDowns.Add(SelectWeapon4ButtonKeyCode, false);
 
         keyHolds.Add(FireButtonKeyCode, false);
     }
 
-    public static bool FireButton { 
-        get { return keyDowns[FireButtonKeyCode]; } 
+    public static bool FireButton
+    {
+        get { return keyDowns[FireButtonKeyCode]; }
     }
 
     public static bool FireHold
@@ -58,6 +62,11 @@ public class InputController : MonoBehaviour
     public static bool SelectWeapon3Button
     {
         get { return keyDowns[SelectWeapon3ButtonKeyCode]; }
+    }
+
+    public static bool SelectWeapon4Button
+    {
+        get { return keyDowns[SelectWeapon4ButtonKeyCode]; }
     }
 
     void Update()

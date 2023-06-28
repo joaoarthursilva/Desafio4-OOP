@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerController : BaseController
 {
     public static int Ammo;
-
     [SerializeField] private Joystick leftJoystick;
 
     public Joystick LeftJoystick
@@ -69,20 +68,20 @@ public class PlayerController : BaseController
 
     private void Update()
     {
-        //Horizontal = leftJoystick.Horizontal;
-        //Vertical = leftJoystick.Vertical;
+        Horizontal = leftJoystick.Horizontal;
+        Vertical = leftJoystick.Vertical;
 
-        Horizontal = Input.GetAxis("Horizontal");
-        Vertical = Input.GetAxis("Vertical");
+        //Horizontal = Input.GetAxis("Horizontal");
+        //Vertical = Input.GetAxis("Vertical");
 
         Velocity = new Vector2(Horizontal, Vertical) * Speed;
 
-        //Direction = rightJoystick.Direction;
+        Direction = rightJoystick.Direction;
 
-        //if(Direction.magnitude > 0.1f)
-        //{
-        //    Rotation = Mathf.Atan2(Direction.y, Direction.x) * Mathf.Rad2Deg - 90f;
-        //}
+        if(Direction.magnitude > 0.1f)
+        {
+            Rotation = Mathf.Atan2(Direction.y, Direction.x) * Mathf.Rad2Deg - 90f;
+        }
 
         MousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         float deltaX = MousePosition.x - tf.position.x;
@@ -135,6 +134,11 @@ public class PlayerController : BaseController
         if (InputController.SelectWeapon3Button)
         {
             ChangeWeapon(2);
+        }
+
+        if (InputController.SelectWeapon4Button)
+        {
+            ChangeWeapon(3);
         }
     }
 }
