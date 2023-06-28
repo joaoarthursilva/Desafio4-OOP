@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6262702fa2fa77f41a6435a463b9dc87, type: 3}
-  m_Name: Sniper
+  m_Name: EnemyWeapon
   m_EditorClassIdentifier: 
-  Name: Sniper
-  Type: 4
+  Name: EnemyWeapon
+  Type: 1
   Mode: 1
-  Damage: 999
-  AmmoMax: 2
-  FireRate: 3
+  Damage: 5
+  AmmoMax: 1
+  FireRate: 1
   ReloadSpeed: 1
-  Accuracy: 0
-  Distance: 999
-  BulletSpeed: 70
-  Weight: 1
+  Accuracy: 1
+  Distance: 8
+  BulletSpeed: 4
+  Weight: 0

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class RocketLauncher : Weapon
 {
-    // Start is called before the first frame update
     public override WeaponType Type { get { return WeaponType.RocketLauncher; } }
 
     protected override void FireWeapon()

@@ -938,10 +938,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 39415363}
     m_Modifications:
-    - target: {fileID: 8578969297252964367, guid: 071a8c2983f783546abdf163cad7795a, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.565
-      objectReference: {fileID: 0}
     - target: {fileID: 8783388198224979672, guid: 071a8c2983f783546abdf163cad7795a, type: 3}
       propertyPath: m_Name
       value: grenade launcher

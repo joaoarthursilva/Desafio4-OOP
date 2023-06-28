@@ -8,6 +8,12 @@ public class Sniper : Weapon
     bool holdingfire;
     public float rad;
     public GameObject aim;
+
+    public override WeaponType Type
+    {
+        get { return WeaponType.Sniper; }
+    }
+
     private void FixedUpdate()
     {
         if (holdingfire)
@@ -30,9 +36,9 @@ public class Sniper : Weapon
             }
         }
     }
+
     public override void Fire()
     {
         holdingfire = true;
-
     }
 }

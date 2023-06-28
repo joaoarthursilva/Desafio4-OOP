@@ -13,12 +13,12 @@ public class BasicAIRanged : MonoBehaviour
     public int damage = 5;
     public Transform playerTransform;
     Transform tf;
-    protected Transform BulletRespawn;
+    public Transform BulletRespawn;
     private float ShootCd;
     public float setShootCd;
     public float StopDistance;
-    public float speed;
-
+    public WeaponDTO weaponDTO;
+    private Vector3 direction;
 
     private void Start()
     {
@@ -30,28 +30,44 @@ public class BasicAIRanged : MonoBehaviour
 
         tf = GetComponent<Transform>();
 
-        bulletSpawn = new Vector2(transform.position.x + 1, transform.position.y + 1);
+        bulletSpawn = BulletRespawn.position;
     }
 
     void Action()
     {
-        if (Vector2.Distance(transform.position, playerTransform.position) > StopDistance)
-            // isso nao ta funcionando por isso nao ta atirando
+        if (CanMove())
         {
-            transform.position =
-                Vector2.MoveTowards(transform.position, playerTransform.position, speed * Time.deltaTime);
+            Move();
         }
         else
             Shoot();
     }
 
-    void Shoot()
+    private void Move()
+    {
+        transform.position =
+            Vector2.MoveTowards(this.transform.position, player.transform.position, vel * Time.deltaTime);
+    }
+
+    // protected virtual float ApplyAccuracy(float angleZ)
+    // {
+    //     float weaponAngleAccuracy = 10f * (1f - Mathf.Clamp01(1));
+    //     angleZ += Random.Range(-weaponAngleAccuracy, weaponAngleAccuracy);
+    //     Debug.Log($"{weaponAngleAccuracy} {angleZ}");
+    //     return angleZ;
+    // }
+
+    private void Shoot()
     {
         if (ShootCd <= 0)
         {
-            // BulletController bullet = Factory.CreateBullet();
-            var bullet = Instantiate(this.bullet);
-            bullet.GetComponent<BulletController>().SetTransform(bulletSpawn, speed);
+            BulletController bullet = Factory.CreateBullet();
+            bullet.SetTransform(BulletRespawn.position, BulletRespawn.rotation.z);
+            bullet.SetDTO(weaponDTO);
+            
+            var moveDirection = (playerTransform.position - transform.position).normalized * weaponDTO.BulletSpeed;
+            
+            bullet.GetComponent<BulletController>().SetTransform(bulletSpawn, moveDirection.z);
 
             ShootCd = setShootCd;
         }
@@ -62,12 +78,14 @@ public class BasicAIRanged : MonoBehaviour
 
     void Update()
     {
-        transform.position =
-            Vector2.MoveTowards(this.transform.position, player.transform.position, vel * Time.deltaTime);
-        Vector2 direction = new Vector2(playerTransform.position.x - transform.position.x,
+        direction = new Vector2(playerTransform.position.x - transform.position.x,
             playerTransform.position.y - transform.position.y);
         transform.up = direction;
-
         Action();
+    }
+
+    private bool CanMove()
+    {
+        return Vector2.Distance(transform.position, playerTransform.position) > StopDistance;
     }
 }

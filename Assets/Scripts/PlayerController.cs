@@ -1,10 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : BaseController
 {
     public static int Ammo;
+    public static float ReloadTime;
+    public Slider _slider;
+    public static bool isRealoading;
+    public static float reloadTime;
+    public TextMeshProUGUI ammoAmountText;
     [SerializeField] private Joystick leftJoystick;
 
     public Joystick LeftJoystick
@@ -65,20 +72,41 @@ public class PlayerController : BaseController
     }
 
     public Vector3 MousePosition;
+    private float fillTime = 0;
+    void FillSlider()
+    {
+        _slider.value = Mathf.Lerp(_slider.minValue, _slider.maxValue, reloadTime);
 
+        fillTime += 0.375f * Time.deltaTime;
+    }
+ 
+    void ResetSlider()
+    {
+        _slider.value = _slider.minValue;
+    }
     private void Update()
     {
-        Horizontal = leftJoystick.Horizontal;
-        Vertical = leftJoystick.Vertical;
+        if (isRealoading)
+        {
+            FillSlider();
+        }
+        else
+        {
+            ResetSlider();
+        }
 
-        //Horizontal = Input.GetAxis("Horizontal");
-        //Vertical = Input.GetAxis("Vertical");
+        ammoAmountText.text = $"{Ammo}";
+        // Horizontal = leftJoystick.Horizontal;
+        // Vertical = leftJoystick.Vertical;
+
+        Horizontal = Input.GetAxis("Horizontal");
+        Vertical = Input.GetAxis("Vertical");
 
         Velocity = new Vector2(Horizontal, Vertical) * Speed;
 
         Direction = rightJoystick.Direction;
 
-        if(Direction.magnitude > 0.1f)
+        if (Direction.magnitude > 0.1f)
         {
             Rotation = Mathf.Atan2(Direction.y, Direction.x) * Mathf.Rad2Deg - 90f;
         }
@@ -139,6 +167,31 @@ public class PlayerController : BaseController
         if (InputController.SelectWeapon4Button)
         {
             ChangeWeapon(3);
+        }
+
+        if (InputController.SelectWeapon5Button)
+        {
+            ChangeWeapon(4);
+        }
+
+        if (InputController.SelectWeapon6Button)
+        {
+            ChangeWeapon(5);
+        }
+
+        if (InputController.SelectWeapon7Button)
+        {
+            ChangeWeapon(6);
+        }
+
+        if (InputController.SelectWeapon8Button)
+        {
+            ChangeWeapon(7);
+        }
+
+        if (InputController.SelectWeapon9Button)
+        {
+            ChangeWeapon(8);
         }
     }
 }

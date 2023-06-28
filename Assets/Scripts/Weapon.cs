@@ -58,6 +58,7 @@ public class Weapon : Item
     private void SyncAmmoWithPlayer()
     {
         PlayerController.Ammo = Ammo;
+        PlayerController.reloadTime = weaponDTO.ReloadSpeed;
     }
 
     public bool CanFire
@@ -116,6 +117,9 @@ public class Weapon : Item
             return;
         }
 
+        PlayerController.isRealoading = false;
+
+
         FireRateTime += Time.deltaTime;
 
         if (ReloadDuration > 0)
@@ -130,11 +134,10 @@ public class Weapon : Item
 
     public IEnumerator Reload()
     {
-        Debug.Log("Reloading...");
-
         yield return new WaitForSeconds(ReloadSpeed);
-
+        PlayerController.isRealoading = true;
         Ammo = AmmoMax;
+        SyncAmmoWithPlayer();
     }
 
     public virtual void Fire()

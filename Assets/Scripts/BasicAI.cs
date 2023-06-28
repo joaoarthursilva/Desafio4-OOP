@@ -13,16 +13,17 @@ public class BasicAI : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
         _health = player.GetComponent<PlayerHealth>();
         playerTransform = player.GetComponent<Transform>();
     }
 
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Destroy(this.gameObject);
+        if (!collision.gameObject.CompareTag("Player"))
+            return;
         _health.TakeDamage(damage);
+        Destroy(this.gameObject);
     }
 
     void Update()

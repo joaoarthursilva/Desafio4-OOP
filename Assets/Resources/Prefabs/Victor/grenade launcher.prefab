@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3500390953155029108}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.315, z: 0}
+  m_LocalPosition: {x: 0, y: 0.565, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -164,5 +164,6 @@ MonoBehaviour:
   Name: Grenade Launcher
   weaponDTO: {fileID: 11400000, guid: 87befe18e5d754c4bbcbc617c37dea67, type: 2}
   BulletRespawn: {fileID: 8578969297252964367}
+  MuzzleFlashPrefab: {fileID: 8578969297252964367}
   range: 2
   detonatetimer: 1
