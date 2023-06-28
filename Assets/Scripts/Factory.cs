@@ -9,11 +9,9 @@ public class Factory : MonoBehaviour
     private void Awake()
     {
         BulletPrefab = Resources.Load<BulletController>("Prefabs/Bullet");
-        
-
     }
 
-    static public BulletController CreateBullet()
+    public static BulletController CreateBullet()
     {
         BulletController go = Instantiate<BulletController>(BulletPrefab);
         return go;
