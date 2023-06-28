@@ -4,26 +4,18 @@ using UnityEngine;
 
 public class PlayerController : BaseController
 {
-
-    [SerializeField]
-    private Joystick leftJoystick;
+    [SerializeField] private Joystick leftJoystick;
 
     public Joystick LeftJoystick
     {
-        set {
-            leftJoystick = value;
-        }
+        set { leftJoystick = value; }
     }
 
-    [SerializeField]
-    private Joystick rightJoystick;
+    [SerializeField] private Joystick rightJoystick;
 
     public Joystick RightJoystick
     {
-        set
-        {
-            rightJoystick = value;
-        }
+        set { rightJoystick = value; }
     }
 
     protected List<Weapon> Weapons = new List<Weapon>();
@@ -38,20 +30,15 @@ public class PlayerController : BaseController
     public float Rotation = 0;
 
     public Vector2 Position
-    { 
-        get {
-            return tf.position;
-        } 
+    {
+        get { return tf.position; }
     }
 
-    [SerializeField]
-    protected int currentWeaponIndex;
+    [SerializeField] protected int currentWeaponIndex;
+
     public Weapon CurrentWeapon
     {
-        get
-        {
-            return Weapons[currentWeaponIndex];
-        }
+        get { return Weapons[currentWeaponIndex]; }
     }
 
     protected override void Awake()
@@ -95,10 +82,11 @@ public class PlayerController : BaseController
             Rotation = Mathf.Atan2(Direction.y, Direction.x) * Mathf.Rad2Deg - 90f;
         }
 
-        //MousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //float deltaX = MousePosition.x - tf.position.x;
-        //float deltaY = MousePosition.y - tf.position.y;
-        //Rotation = Mathf.Atan2(deltaY, deltaX) * Mathf.Rad2Deg -90f;
+        MousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float deltaX = MousePosition.x - tf.position.x;
+        float deltaY = MousePosition.y - tf.position.y;
+        Rotation = Mathf.Atan2(deltaY, deltaX) * Mathf.Rad2Deg - 90f;
+
 
         tf.rotation = Quaternion.Euler(0, 0, Rotation);
 
@@ -122,17 +110,18 @@ public class PlayerController : BaseController
                 Debug.Break();
                 break;
         }
-        if(fireButton)
+
+        if (fireButton)
         {
             CurrentWeapon.Fire();
         }
 
-        if(InputController.ReloadButton)
+        if (InputController.ReloadButton)
         {
             CurrentWeapon.Reload();
         }
 
-        if(InputController.SelectWeapon1Button)
+        if (InputController.SelectWeapon1Button)
         {
             ChangeWeapon(0);
         }
@@ -147,7 +136,9 @@ public class PlayerController : BaseController
             ChangeWeapon(2);
         }
 
-        
-        
+        if (InputController.SelectWeapon4Button)
+        {
+            ChangeWeapon(3);
+        }
     }
 }
