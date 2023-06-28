@@ -11,15 +11,14 @@ public class Factory : MonoBehaviour
     {
         BulletPrefab = Resources.Load<BulletController>("Prefabs/Bullet");
         MissilePrefab = Resources.Load<Missile>("Prefabs/Missile");
-
-
     }
 
-    static public BulletController CreateBullet()
+    public static BulletController CreateBullet()
     {
         BulletController go = Instantiate<BulletController>(BulletPrefab);
         return go;
     }
+
     static public Missile CreateMissile()
     {
         Missile go = Instantiate<Missile>(MissilePrefab);
