@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : BaseController
 {
+    public static int Ammo;
     [SerializeField] private Joystick leftJoystick;
 
     public Joystick LeftJoystick
@@ -86,7 +87,6 @@ public class PlayerController : BaseController
         float deltaX = MousePosition.x - tf.position.x;
         float deltaY = MousePosition.y - tf.position.y;
         Rotation = Mathf.Atan2(deltaY, deltaX) * Mathf.Rad2Deg - 90f;
-
 
         tf.rotation = Quaternion.Euler(0, 0, Rotation);
 
