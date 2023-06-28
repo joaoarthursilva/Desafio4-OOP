@@ -67,25 +67,26 @@ public class PlayerController : BaseController
 
     private void Update()
     {
-        //Horizontal = leftJoystick.Horizontal;
-        //Vertical = leftJoystick.Vertical;
+        Horizontal = leftJoystick.Horizontal;
+        Vertical = leftJoystick.Vertical;
 
-        Horizontal = Input.GetAxis("Horizontal");
-        Vertical = Input.GetAxis("Vertical");
+        //Horizontal = Input.GetAxis("Horizontal");
+        //Vertical = Input.GetAxis("Vertical");
 
         Velocity = new Vector2(Horizontal, Vertical) * Speed;
 
-        //Direction = rightJoystick.Direction;
+        Direction = rightJoystick.Direction;
 
-        //if(Direction.magnitude > 0.1f)
-        //{
-        //    Rotation = Mathf.Atan2(Direction.y, Direction.x) * Mathf.Rad2Deg - 90f;
-        //}
+        if(Direction.magnitude > 0.1f)
+        {
+            Rotation = Mathf.Atan2(Direction.y, Direction.x) * Mathf.Rad2Deg - 90f;
+        }
 
         MousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         float deltaX = MousePosition.x - tf.position.x;
         float deltaY = MousePosition.y - tf.position.y;
         Rotation = Mathf.Atan2(deltaY, deltaX) * Mathf.Rad2Deg - 90f;
+
 
         tf.rotation = Quaternion.Euler(0, 0, Rotation);
 
