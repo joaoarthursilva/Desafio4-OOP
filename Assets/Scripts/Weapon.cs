@@ -47,7 +47,7 @@ public class Weapon : Item
 
     protected Transform tf;
 
-    public Transform MuzzleFlashPrefab;
+    public GameObject MuzzleFlashPrefab;
 
 
     private void Start()
