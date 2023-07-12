@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 655272722223841263}
   - component: {fileID: 655272722223841262}
   - component: {fileID: 655272722223841261}
+  - component: {fileID: 5598818925734424639}
   - component: {fileID: 655272722223841260}
   - component: {fileID: 5430979968033034199}
   m_Layer: 0
@@ -113,6 +114,21 @@ MonoBehaviour:
   Rotation: 0
   currentWeaponIndex: 0
   MousePosition: {x: 0, y: 0, z: 0}
+--- !u!114 &5598818925734424639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655272722223841257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48c1ab2de44ebad49827a6cbb60491e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 50
+  MaxHealth: 50
+  isDamaged: 0
 --- !u!50 &655272722223841260
 Rigidbody2D:
   serializedVersion: 4

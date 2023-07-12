@@ -2,8 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum WeaponType { None, Pistol, Shotgun, Machinegun, Sniper, RocketLauncher }
-public enum FireMode { None, Semi, Auto }
+public enum WeaponType
+{
+    None,
+    Pistol,
+    Shotgun,
+    Machinegun,
+    Sniper,
+    RocketLauncher
+}
+
+public enum FireMode
+{
+    None,
+    Semi,
+    Auto
+}
+
 public class Weapon : Item
 {
     public const float MAX_ANGLE_ACCURACY = 10f;
@@ -22,22 +37,32 @@ public class Weapon : Item
 
     public float FireRateTime { get; protected set; }
 
-    [SerializeField]
-    public virtual WeaponType Type { get; set; }
+    [SerializeField] public virtual WeaponType Type { get; set; }
 
-    [SerializeField]
-    public FireMode Mode { get; protected set; }
+    [SerializeField] public FireMode Mode { get; protected set; }
 
-    [SerializeField]
-    protected WeaponDTO weaponDTO;
+    [SerializeField] protected WeaponDTO weaponDTO;
 
-    [SerializeField]
-    protected Transform BulletRespawn;
+    [SerializeField] protected Transform BulletRespawn;
 
     protected Transform tf;
 
+    public GameObject MuzzleFlashPrefab;
+
+
+    private void Start()
+    {
+        SyncAmmoWithPlayer();
+    }
+
+    private void SyncAmmoWithPlayer()
+    {
+        PlayerController.Ammo = Ammo;
+        PlayerController.reloadTime = weaponDTO.ReloadSpeed;
+    }
+
     public bool CanFire
-    { 
+    {
         get
         {
             return (
@@ -45,7 +70,7 @@ public class Weapon : Item
                 && ReloadDuration <= 0
                 && FireRateTime >= FireRate
             );
-        } 
+        }
     }
 
     public virtual void SetDTO(WeaponDTO dto)
@@ -70,43 +95,71 @@ public class Weapon : Item
 
     private void Awake()
     {
+        if (Ammo == -1)
+            Ammo = AmmoMax;
+
         tf = GetComponent<Transform>();
 
         BulletRespawn = transform.Find("BulletRespawn");
 
 
-        if(weaponDTO != null)
+        if (weaponDTO != null)
         {
             SetDTO(weaponDTO);
         }
-
-
     }
 
     private void Update()
     {
+        if (Ammo <= 0)
+        {
+            StartCoroutine(Reload());
+            return;
+        }
+
+        PlayerController.isRealoading = false;
+
+
         FireRateTime += Time.deltaTime;
 
-        if(ReloadDuration > 0)
+        if (ReloadDuration > 0)
         {
             ReloadDuration -= Time.deltaTime;
-            if(ReloadDuration <= 0)
+            if (ReloadDuration <= 0)
             {
                 Ammo = AmmoMax;
             }
         }
+    }
 
-
+    public IEnumerator Reload()
+    {
+        yield return new WaitForSeconds(ReloadSpeed);
+        PlayerController.isRealoading = true;
+        Ammo = AmmoMax;
+        SyncAmmoWithPlayer();
     }
 
     public virtual void Fire()
     {
-        if(CanFire)
+        if (CanFire)
         {
             FireWeapon();
             FireRateTime = 0f;
             Ammo--;
+            SyncAmmoWithPlayer();
+
+            StartCoroutine("Effect");
         }
+    }
+
+    IEnumerator Effect()
+    {
+        Transform clone = Instantiate(MuzzleFlashPrefab, BulletRespawn.position + (BulletRespawn.up * 0.1f),
+            BulletRespawn.rotation * Quaternion.Euler(0, 0, 90)).transform;
+        clone.parent = BulletRespawn;
+        yield return new WaitForSeconds(.2f);
+        Destroy(clone.gameObject);
     }
 
     protected virtual void FireWeapon()
@@ -115,7 +168,6 @@ public class Weapon : Item
         float z = ApplyAccuracy(tf.rotation.eulerAngles.z);
         bullet.SetTransform(BulletRespawn.position, z);
         bullet.SetDTO(weaponDTO);
-
     }
 
     protected virtual float ApplyAccuracy(float angleZ)
@@ -124,10 +176,5 @@ public class Weapon : Item
         angleZ += Random.Range(-weaponAngleAccuracy, weaponAngleAccuracy);
         Debug.Log($"{weaponAngleAccuracy} {angleZ}");
         return angleZ;
-    }
-
-    public virtual void Reload()
-    {
-        ReloadDuration = ReloadSpeed;
     }
 }

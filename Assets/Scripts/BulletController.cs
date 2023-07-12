@@ -1,15 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletController : BaseController
 {
-    [SerializeField]
-    protected float Speed;
-    [SerializeField]
-    protected float Distance;
-    [SerializeField]
-    protected Vector2 StartPosition;
+    [SerializeField] protected float Speed;
+    [SerializeField] protected float Distance;
+    [SerializeField] protected Vector2 StartPosition;
 
 
     public void SetTransform(Vector2 position, float rotation)
@@ -28,14 +23,12 @@ public class BulletController : BaseController
         rb.velocity = tf.rotation * new Vector2(0, Speed);
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         float currentDistance = Vector3.Distance(tf.position, StartPosition);
         if (currentDistance >= Distance)
         {
             Destroy(gameObject);
         }
-        
     }
-
 }

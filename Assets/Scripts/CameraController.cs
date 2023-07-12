@@ -19,8 +19,4 @@ public class CameraController : MonoBehaviour
         tf.position = new Vector3(pos.x, pos.y, tf.position.z);
     }
 
-    private void Update()
-    {
-        
-    }
 }
